@@ -23,7 +23,7 @@ exports.createItem = async(req, res) => {
         newItem.id = itemList.length + 1;
         itemList.push(newItem);
         await asyncWriteFile(JSON.stringify(itemList), req.app.locals.dataFilePath);
-        res.status(200).send(itemList);
+        res.status(201).send(itemList);
     }
 }
 
