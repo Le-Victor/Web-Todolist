@@ -27,10 +27,29 @@ exports.createItem = async(req, res) => {
     }
 }
 
-exports.modifyStatus = (req, res) => {
-    console.log("modifyStatus");
+exports.modifyStatus = async(req, res) => {
+    const id = req.params.id;
+    const file = await asyncReadFile(req.app.locals.dataFilePath);
+    const itemList = JSON.parse(file);
+    const newList = itemList.filter(v => v.id != id);
+    if(itemList.length == newList.length){
+        res.status(404).send();
+    }else{
+        itemList[id-1].status = !itemList[id-1].status;
+        await asyncWriteFile(JSON.stringify(itemList), req.app.locals.dataFilePath);
+        res.status(200).send(itemList);
+    }
 }
 
-exports.deleteItem = (req, res) => {
-    console.log("deleteItem");
+exports.deleteItem = async(req, res) => {
+    const id = req.params.id;
+    const file = await asyncReadFile(req.app.locals.dataFilePath);
+    const itemList = JSON.parse(file);
+    const newList = itemList.filter(v => v.id != id);
+    if(newList.length == itemList.length){
+        res.status(404).send();
+    }else{
+        await asyncWriteFile(JSON.stringify(newList), req.app.locals.dataFilePath);
+        res.status(200).send(newList);
+    }
 }
