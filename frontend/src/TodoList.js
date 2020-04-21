@@ -6,7 +6,7 @@ class TodoList extends Component {
         return (
             <div className="ui huge middle aligned selection relaxed divided list">
                 {this.props.todoListContents.map((item, index) => {
-                    return <ListItem mark_item_done={this.props.mark_item_done} key={index} index={index} item={item}/>
+                    return <ListItem mark_item_done={this.props.mark_item_done} delete_item={this.props.delete_item} key={index} index={index} item={item}/>
                     })
                 }
             </div>

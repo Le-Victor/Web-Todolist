@@ -41,13 +41,23 @@ class App extends Component {
   }
 
   mark_item_done = (index) => {
-    updateTodo(this.state.todoListContents[index]).then(data => {
+    updateTodo(this.state.todoListContents[index])
+    .then(data => {
       this.setState({todoListContents: data})
     }).catch(error => {
       console.log('Update item failed')
     })
   }
- 
+  delete_item = (index) => {
+    deleteTodo(this.state.todoListContents[index])
+    .then(data => {
+      this.setState({todoListContents: data})
+    })
+    .catch(error => {
+      console.log('Delete item failed')
+    })
+  }
+
   show_input_modal = () => {
     this.refs.input_modal.setState({open: true})
   }
@@ -69,6 +79,7 @@ class App extends Component {
                       <TodoList
                         todoListContents={this.state.todoListContents}
                         mark_item_done={this.mark_item_done}
+                        delete_item={this.delete_item}
                       />
                       </div>
                     </div>

@@ -17,6 +17,7 @@ export const updateTodo = (todo) => {
     .then(response => response.json());
 }
 
-export const deleteTodo = (todoId) => {	
-    return doDeleteRequest(TODO_PATH + "/" + todoId);
+export const deleteTodo = (todo) => {	
+    return doDeleteRequest(TODO_PATH + "/" + todo.id)
+    .then(response => response.json());
 }
