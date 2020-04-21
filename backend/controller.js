@@ -20,7 +20,7 @@ exports.createItem = async(req, res) => {
     if(itemList.filter(v => v.content == newItem.content).length != 0){
         res.status(400).send();
     }else{
-        newItem.id = itemList.length ++ ;
+        newItem.id = itemList.length + 1;
         itemList.push(newItem);
         await asyncWriteFile(JSON.stringify(itemList), req.app.locals.dataFilePath);
         res.status(201).send(itemList);
