@@ -41,24 +41,15 @@ class App extends Component {
   }
 
   mark_item_done = (index) => {
-    this.setState(() => {
-      this.state.todoListContents[index].status = true
-      return this.state
+    updateTodo(this.state.todoListContents[index]).then(data => {
+      this.setState({todoListContents: data})
+    }).catch(error => {
+      console.log('Update item failed')
     })
   }
  
   show_input_modal = () => {
     this.refs.input_modal.setState({open: true})
-  }
-
-  get_list_test = () => {
-    getTodos().then(data => {
-      // alert(data)
-      let s = JSON.stringify(data)
-      alert(s)
-    }).catch(() => {
-      alert('request failed')
-    })
   }
 
   render() {
@@ -82,7 +73,6 @@ class App extends Component {
                       </div>
                     </div>
                   </div>
-                  <button onClick={this.get_list_test}>Test</button>
               </div>
               <InputModal add_todo_item={this.add_todo_item} ref='input_modal'/>
           </div>
