@@ -1,3 +1,4 @@
+import { getTodos, addTodo, deleteTodo, updateTodo } from "./api/TodoApi";
 import TodoListHeader from './TodoListHeader'
 import TodoList from './TodoList'
 import InputModal from "./InputModal";
@@ -12,23 +13,36 @@ class App extends Component {
     super(props);
     this.state = {
       todoListContents: [
-        {content: 'Learning GoLang', done: true},
-        {content: 'Learning Node.JS', done: false},
-        ]
+        {id: 1, content: 'Loding...', status: false}
+      ]
     }
+    getTodos().then(data => {
+      this.setState({
+        todoListContents: data
+      })
+    }).catch(() => {
+      alert('request failed')
+    })
+
   }
 
   add_todo_item = (todo_item) => {
     const new_todoListContent = [
       ...this.state.todoListContents,
-      {content: todo_item, done: false}
+      {content: 'Adding...', status: false}
     ]
+    addTodo({content: todo_item, status: false}).then(data => {
+      this.setState({todoListContents: data})
+    }).catch(error => {
+        console.log('Add new item failed')
+      }
+    )
     this.setState({todoListContents: new_todoListContent})
   }
 
   mark_item_done = (index) => {
     this.setState(() => {
-      this.state.todoListContents[index].done = true
+      this.state.todoListContents[index].status = true
       return this.state
     })
   }
@@ -36,6 +50,17 @@ class App extends Component {
   show_input_modal = () => {
     this.refs.input_modal.setState({open: true})
   }
+
+  get_list_test = () => {
+    getTodos().then(data => {
+      // alert(data)
+      let s = JSON.stringify(data)
+      alert(s)
+    }).catch(() => {
+      alert('request failed')
+    })
+  }
+
   render() {
     return (
           <div className="App">
@@ -57,6 +82,7 @@ class App extends Component {
                       </div>
                     </div>
                   </div>
+                  <button onClick={this.get_list_test}>Test</button>
               </div>
               <InputModal add_todo_item={this.add_todo_item} ref='input_modal'/>
           </div>

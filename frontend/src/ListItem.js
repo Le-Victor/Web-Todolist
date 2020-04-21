@@ -6,13 +6,13 @@ class ListItem extends Component {
     }
     render() {
         let icon_elem = null
-        if(this.props.item.done) {
+        if(this.props.item.status) {
             icon_elem = <i className="ui check circle outline icon"></i>
         } else {
             icon_elem = <i className="ui circle outline icon"></i>
         }
         return (
-            <div onClick={this.mark_item_done} className="item">
+            <div onClick={this.mark_item_done} id={this.props.item.id} className="item">
                 {icon_elem}
                 <div className="content">
                     {this.props.item.content}
