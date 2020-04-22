@@ -15,7 +15,7 @@ class ListItem extends Component {
             icon_elem = <i onClick={this.mark_item_done}  className="ui circle outline icon"></i>
         }
         return (
-            <div id={this.props.item.id} className="item">
+            <div id={'item' + this.props.item.id} className="item">
                 {icon_elem}
                 <div className="content">
                     {this.props.item.content}
