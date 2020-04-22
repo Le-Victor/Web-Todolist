@@ -13,7 +13,7 @@ class App extends Component {
     super(props);
     this.state = {
       todoListContents: [
-        {id: 1, content: 'Loding...', status: false}
+        {id: 1, content: 'Loading...', status: false}
       ]
     }
     getTodos().then(data => {
